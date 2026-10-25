@@ -1,0 +1,13 @@
+# Example watchlist for scripts/scan.sh. Copy it and edit:
+#   cp watchlist.example.txt watchlist.txt
+#   bash scripts/scan.sh --watchlist watchlist.txt --top 10
+#
+# One ticker per line (or comma-separated). Use Yahoo's symbol, with the
+# exchange suffix for non-US listings. Anything after # is ignored.
+AAPL
+MSFT
+NVDA
+GOOGL
+AMZN
+# AZN.L     # London
+# BTC-USD   # crypto

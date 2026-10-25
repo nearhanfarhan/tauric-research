@@ -119,6 +119,53 @@ Read the Portfolio Manager's reasoning and the bull/bear debate, not just the
 label. The reasoning tells you *why*, and whether it fits your own view and risk
 tolerance.
 
+## Finding stocks to analyze
+
+TradingAgents **analyzes** stocks you give it. It doesn't search the market for
+winners. `scripts/scan.sh` fills that gap. It builds a shortlist from a Yahoo
+Finance screen or your own watchlist, runs the full analysis on each ticker, and
+ranks the results from Buy down to Sell.
+
+### A sensible routine
+
+1. **Build a shortlist.** Use a Yahoo screen, a watchlist of companies you
+   already follow, or names from news you've read.
+2. **Preview it for free.** `--dry-run` only lists the candidates and makes no AI calls.
+3. **Analyze the top 3–5.** Each ticker is one full analysis, so 5 tickers take
+   about 5 times as long and cost about 5 times as much as a single run.
+4. **Read the reports** for anything rated Buy or Overweight, especially the
+   bear case and the risk debate. Don't stop at the label.
+5. **Decide yourself.** Choose how much to put in and where you'd sell if you're
+   wrong, then place the trade with your broker.
+6. **Track its record before trusting it.** Re-scan your watchlist every week or
+   two. The memory log scores past calls automatically, and `tradingagents
+   backtest` (below) tests it on past dates. See whether its ratings beat simply
+   holding the S&P 500 before using real money on them.
+
+### Commands
+
+```bash
+bash scripts/scan.sh --list-screens                                   # what screens exist
+bash scripts/scan.sh --screen undervalued_large_caps --top 5 --dry-run # preview, free
+bash scripts/scan.sh --screen undervalued_large_caps --top 5           # analyze them
+bash scripts/scan.sh --tickers AAPL,MSFT,NVDA                          # your own picks
+cp watchlist.example.txt watchlist.txt && open -e watchlist.txt        # make a watchlist
+bash scripts/scan.sh --watchlist watchlist.txt --top 10
+```
+
+Before it starts, the script asks you to confirm (add `--yes` to skip that).
+When it's done, a ranked summary opens in your browser, linking to each full
+report. Summaries are saved in `~/.tradingagents/logs/scans/`.
+
+Other options: `--date 2026-10-17` analyzes as of a past date, and `--analysts
+market,news` runs fewer analysts for a faster, cheaper scan. `--help` lists
+everything.
+
+**Which screen?** For investment ideas, start with `undervalued_large_caps`,
+`undervalued_growth_stocks` or `growth_technology_stocks`. `day_gainers`,
+`small_cap_gainers` and `most_shorted_stocks` pick stocks that are already
+moving fast, which is short-term and riskier.
+
 ## Making it know what you own (optional)
 
 By default the agents don't know your holdings. To size advice against your real
