@@ -29,6 +29,8 @@
 
 # TradingAgents: Multi-Agents LLM Financial Trading Framework
 
+> **Mac + Gemini quick start for this fork:** see [SETUP_MAC.md](SETUP_MAC.md).
+
 ## News
 
 <!-- news:start -->
